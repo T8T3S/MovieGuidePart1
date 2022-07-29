@@ -1,5 +1,4 @@
-list_of_movies = ['Monty Python and the Holy Grail', 'On the Waterfront', 'Cat on a Hot Tin Roof']
-
+list_of_movies = ['Monty Python and the Holy Grail','On the Waterfront','Cat on a Hot Tin Roof']
 def print_intro():
     print('The Movie List program')
     print('\nCOMMAND MENU')
@@ -9,16 +8,16 @@ def print_intro():
     print('exit - Exit program')
 
 def list_all_movies():
-    for m in list_of_movies:
-        print(f'{list_of_movies.index(m) + 1}. {m}')
+    for index, m in enumerate(list_of_movies, start=1):
+        print(f'{index}. {m}')
 
 def add_movie(movie_name):
     list_of_movies.append(movie_name)
     print(f'{movie_name} was added.')
 
 def delete_movie(which_movie):
-    print(f'{list_of_movies[which_movie]} was deleted.')
-    list_of_movies.pop(which_movie)
+    movie = list_of_movies.pop(which_movie-1)
+    print(f'{movie} was deleted.')
 
 def exit_program():
     print('Bye!')
@@ -26,19 +25,17 @@ def exit_program():
 print_intro()
 while True:
     command = input('\nCommand: ')
-    if command == 'list':
+    if command.lower() == 'list':
         list_all_movies()
-    elif command == 'add':
+    elif command.lower() == 'add':
         movie_name = input('Name: ')
         add_movie(movie_name)
-    elif command == 'del':
+    elif command.lower() == 'del':
         which_movie = int(input('Number: '))
-        if which_movie > len(list_of_movies):
-            print('Invalid movie number.')
-        elif which_movie < 0:
+        if which_movie > len(list_of_movies) or which_movie < 0:
             print('Invalid movie number.')
         else:
-            delete_movie(which_movie - 1)
+            delete_movie(which_movie)
     elif command == 'exit':
         exit_program()
     else:
